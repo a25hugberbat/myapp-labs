@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Joc Preguntes</title>
+</head>
+<body>
+    <div id="marcador" class="sticky-sm-top"></div>
+    <h1 class="text-center fw-bolder mb-5 mt-5">PREGUNTES AUTOESCOLA</h1>
+    <div class="text-center mb-3">
+    <h2 class="fw-bolder ">Temps: <span id="cronometre">0</span>s</h2>    
+    <button id="btnIniciarCronometre" class="btn btn-primary btn-sm">Iniciar cronòmetre</button>
+    </div>
+
+    <div class="text-center d-flex flex-column align-items-center mb-5 pb-5 border-bottom">
+        <input type="text" placeholder="Posa el teu nom" nome="" id="inputNom">
+        <div class="mb-3" id="divBenvinguda"></div>
+        <button class="btn btn-outline-primary" id="btnGuardar">Iniciar Sessió</button>
+        <button class="btn btn-outline-danger" id="btnEsborrar">Desconnectar-se</button>
+    </div>
+    <div id="partida"></div>
+
+    <script src="funcions.js"></script>
+    <div class="text-center d-flex flex-column align-items-center mb-5 pb-5 border-bottom">
+        <button id="btnEnviar" class="btn btn-outline-primary d-none" onclick="finalitzarTest()">Resoldre</button>
+    </div>
+</body>
+</html>

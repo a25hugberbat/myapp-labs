@@ -1,0 +1,694 @@
+{
+  "preguntes": [
+    {
+      "id": 1,
+      "pregunta": "Quina és la velocitat màxima genèrica per a turismes en autopista, si no hi ha senyalització que indiqui una altra cosa?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Spain_traffic_signal_r301-120.svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "120 km/h"
+        },
+        {
+          "id": 2,
+          "resposta": "100 km/h"
+        },
+        {
+          "id": 3,
+          "resposta": "130 km/h"
+        },
+        {
+          "id": 4,
+          "resposta": "90 km/h"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "pregunta": "Quina és la taxa màxima d'alcohol en sang permesa per a conductors novells (menys de 2 anys de carnet)?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Breathalyzer.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "0,3 g/l"
+        },
+        {
+          "id": 2,
+          "resposta": "0,5 g/l"
+        },
+        {
+          "id": 3,
+          "resposta": "0,8 g/l"
+        },
+        {
+          "id": 4,
+          "resposta": "0,0 g/l"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "pregunta": "Un senyal de forma triangular amb la vora vermella, en general, indica...",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Spain_traffic_signal_p50.svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Perill"
+        },
+        {
+          "id": 2,
+          "resposta": "Prohibició"
+        },
+        {
+          "id": 3,
+          "resposta": "Obligació"
+        },
+        {
+          "id": 4,
+          "resposta": "Indicació"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "pregunta": "Quina distància de seguretat s'ha de mantenir amb el vehicle del davant?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Highways%20England%20traffic%20car%20on%20M40%202018-07-15.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "La suficient per poder aturar-se sense col·lisionar si frena de sobte"
+        },
+        {
+          "id": 2,
+          "resposta": "Sempre 1 metre"
+        },
+        {
+          "id": 3,
+          "resposta": "Sempre 5 metres"
+        },
+        {
+          "id": 4,
+          "resposta": "No cal mantenir cap distància si es va a poca velocitat"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "pregunta": "Què indica un senyal circular amb fons blau i una fletxa blanca?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Spain_traffic_signal_r400a.svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Una obligació (direcció obligatòria)"
+        },
+        {
+          "id": 2,
+          "resposta": "Una prohibició de gir"
+        },
+        {
+          "id": 3,
+          "resposta": "Un carril preferent per a vianants"
+        },
+        {
+          "id": 4,
+          "resposta": "Fi de prohibició"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "pregunta": "Quan es pot avançar un altre vehicle per la dreta?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Traffic%20seen%20from%20top%20of%20Arc%20de%20Triomphe.JPG",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Quan el vehicle del davant indica que girarà a l'esquerra"
+        },
+        {
+          "id": 2,
+          "resposta": "Sempre que hi hagi espai suficient"
+        },
+        {
+          "id": 3,
+          "resposta": "Mai, en cap circumstància"
+        },
+        {
+          "id": 4,
+          "resposta": "Només a l'autopista"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "pregunta": "Quin és el nivell màxim de pneumàtics gastats permès legalment (profunditat mínima del dibuix)?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Used%20Tire%20Tread%20(5690529503).jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "1,6 mm"
+        },
+        {
+          "id": 2,
+          "resposta": "3 mm"
+        },
+        {
+          "id": 3,
+          "resposta": "0,5 mm"
+        },
+        {
+          "id": 4,
+          "resposta": "5 mm"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "pregunta": "Què s'ha de fer davant un senyal de STOP?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Spain_traffic_signal_r2.svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Aturar-se completament i cedir el pas encara que no vingui cap vehicle"
+        },
+        {
+          "id": 2,
+          "resposta": "Reduir la velocitat sense aturar-se si no ve ningú"
+        },
+        {
+          "id": 3,
+          "resposta": "Aturar-se només si hi ha altres vehicles"
+        },
+        {
+          "id": 4,
+          "resposta": "Cedir el pas sense necessitat d'aturar-se"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "pregunta": "És obligatori l'ús del cinturó de seguretat als seients del darrere?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Car%20seat%20belt.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Sí, sempre que el vehicle en disposi"
+        },
+        {
+          "id": 2,
+          "resposta": "No, només és obligatori davant"
+        },
+        {
+          "id": 3,
+          "resposta": "Només en carretera, no en ciutat"
+        },
+        {
+          "id": 4,
+          "resposta": "Només per a menors de 12 anys"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "pregunta": "Què indica una línia contínua a la carretera que separa els dos sentits de circulació?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Road%20Marking-1170606%2C%20Dingle%20Peninsula%2C%20Co.%20Kerry%2C%20Ireland.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Prohibició d'avançar o de canviar de carril travessant-la"
+        },
+        {
+          "id": 2,
+          "resposta": "Es pot avançar sempre que hi hagi visibilitat"
+        },
+        {
+          "id": 3,
+          "resposta": "Només indica el límit de velocitat"
+        },
+        {
+          "id": 4,
+          "resposta": "És merament informativa i no té caràcter obligatori"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "pregunta": "Quina és la velocitat màxima genèrica en via urbana si no hi ha senyalització específica?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Spain_traffic_signal_r301-50.svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "50 km/h"
+        },
+        {
+          "id": 2,
+          "resposta": "30 km/h"
+        },
+        {
+          "id": 3,
+          "resposta": "40 km/h"
+        },
+        {
+          "id": 4,
+          "resposta": "60 km/h"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "pregunta": "Un senyal triangular invertit (amb el vèrtex cap avall), blanc amb la vora vermella, indica...",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Spain_traffic_signal_r1.svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Cedir el pas"
+        },
+        {
+          "id": 2,
+          "resposta": "Parada obligatòria"
+        },
+        {
+          "id": 3,
+          "resposta": "Perill genèric"
+        },
+        {
+          "id": 4,
+          "resposta": "Prohibit el pas"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "pregunta": "Un senyal circular amb dos cotxes (un negre i un vermell) dins d'un cercle vermell indica...",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Spain_traffic_signal_r305.svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Prohibició d'avançar altres vehicles"
+        },
+        {
+          "id": 2,
+          "resposta": "Obligació d'avançar per la dreta"
+        },
+        {
+          "id": 3,
+          "resposta": "Fi de la prohibició d'avançar"
+        },
+        {
+          "id": 4,
+          "resposta": "Carril reservat a vehicles lents"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "pregunta": "És legal sostenir el telèfon mòbil amb la mà mentre es condueix?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Cell%20phone%20use%20while%20driving.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "No, està prohibit encara que sigui breu"
+        },
+        {
+          "id": 2,
+          "resposta": "Sí, sempre que la trucada sigui curta"
+        },
+        {
+          "id": 3,
+          "resposta": "Sí, si el vehicle està aturat en un semàfor en vermell"
+        },
+        {
+          "id": 4,
+          "resposta": "Sí, si es circula a menys de 30 km/h"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "pregunta": "En una rotonda, qui té prioritat de pas amb caràcter general?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Roundabout.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Els vehicles que ja circulen per dins la rotonda"
+        },
+        {
+          "id": 2,
+          "resposta": "Els vehicles que hi volen entrar"
+        },
+        {
+          "id": 3,
+          "resposta": "El vehicle de mida més gran"
+        },
+        {
+          "id": 4,
+          "resposta": "El vehicle que circula més ràpid"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "pregunta": "Quina distància lateral mínima s'ha de deixar en avançar un ciclista en via interurbana?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/UBER%20Eats%20Delivery%20Cyclist%20Riding%20Through%20a%20Busy%20Oxford%20Road%20in%20Manchester.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "1,5 metres"
+        },
+        {
+          "id": 2,
+          "resposta": "0,5 metres"
+        },
+        {
+          "id": 3,
+          "resposta": "1 metre"
+        },
+        {
+          "id": 4,
+          "resposta": "No cal deixar cap distància addicional"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "pregunta": "És obligatori l'ús del casc per al conductor i el passatger d'una motocicleta?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Bell%20motorcycle%20helmet.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Sí, sempre, per a ambdós"
+        },
+        {
+          "id": 2,
+          "resposta": "Només per al conductor"
+        },
+        {
+          "id": 3,
+          "resposta": "Només en carretera, no en ciutat"
+        },
+        {
+          "id": 4,
+          "resposta": "Només si la motocicleta supera els 125 cc"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "pregunta": "Què s'ha de fer en circular per un túnel, encara que estigui il·luminat?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Driving%20in%20Clem%20Jones%20Tunnel.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Encendre els llums de creuament"
+        },
+        {
+          "id": 2,
+          "resposta": "Apagar tots els llums del vehicle"
+        },
+        {
+          "id": 3,
+          "resposta": "Utilitzar només els llums de posició"
+        },
+        {
+          "id": 4,
+          "resposta": "Encendre els llums antiboira posteriors"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "pregunta": "Un senyal quadrat blau amb un triangle blanc i la silueta d'un vianant indica...",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Spain_traffic_signal_s13.svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Proximitat d'un pas de vianants"
+        },
+        {
+          "id": 2,
+          "resposta": "Zona escolar"
+        },
+        {
+          "id": 3,
+          "resposta": "Prohibit el pas de vianants"
+        },
+        {
+          "id": 4,
+          "resposta": "Zona exclusiva per a vianants"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "pregunta": "Què significa el llum ambre (groc) fix d'un semàfor?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Traffic%20lights%20yellow.svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Anuncia el canvi a vermell i obliga a aturar-se si es pot fer amb seguretat"
+        },
+        {
+          "id": 2,
+          "resposta": "Que es pot passar amb precaució sense aturar-se"
+        },
+        {
+          "id": 3,
+          "resposta": "Que el semàfor està espatllat"
+        },
+        {
+          "id": 4,
+          "resposta": "Que només poden passar els vianants"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "pregunta": "Es pot instal·lar una cadireta infantil en sentit contrari a la marxa al seient davanter?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Child%20car%20seat.JPG",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "No, llevat que es desactivi l'airbag frontal d'aquest seient"
+        },
+        {
+          "id": 2,
+          "resposta": "Sí, sempre, sense cap excepció"
+        },
+        {
+          "id": 3,
+          "resposta": "No, mai, sota cap circumstància"
+        },
+        {
+          "id": 4,
+          "resposta": "Sí, però només amb el cotxe aturat"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "pregunta": "En una cruïlla sense senyals ni marques viàries, qui té prioritat de pas amb caràcter general?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Crossroads%20(33697453000).jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "El vehicle que ve per la dreta"
+        },
+        {
+          "id": 2,
+          "resposta": "El vehicle de mida més gran"
+        },
+        {
+          "id": 3,
+          "resposta": "El primer que arriba, encara que vingui per l'esquerra"
+        },
+        {
+          "id": 4,
+          "resposta": "El vehicle que circula més ràpid"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "pregunta": "Cada quants anys s'ha de renovar el permís de conduir per a un conductor d'entre 30 i 45 anys?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Permiso%20de%20conducir%20plastificado.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Cada 10 anys"
+        },
+        {
+          "id": 2,
+          "resposta": "Cada 5 anys"
+        },
+        {
+          "id": 3,
+          "resposta": "Cada 15 anys"
+        },
+        {
+          "id": 4,
+          "resposta": "No cal renovar-lo mai"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "pregunta": "Un senyal circular vermell amb una franja blanca horitzontal indica...",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Spain_traffic_signal_r101.svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Direcció prohibida (entrada prohibida)"
+        },
+        {
+          "id": 2,
+          "resposta": "Sentit únic"
+        },
+        {
+          "id": 3,
+          "resposta": "Carrer sense sortida"
+        },
+        {
+          "id": 4,
+          "resposta": "Prohibit avançar"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "pregunta": "Quan és recomanable o obligatori l'ús de cadenes en un vehicle?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Snow%20Chain%20Honda.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Quan la calçada està coberta de neu o gel i ho indica la senyalització"
+        },
+        {
+          "id": 2,
+          "resposta": "Sempre que plogui"
+        },
+        {
+          "id": 3,
+          "resposta": "En qualsevol època de l'any, per seguretat"
+        },
+        {
+          "id": 4,
+          "resposta": "Només en autopistes de muntanya a l'estiu"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "pregunta": "Es pot aparcar en doble fila encara que sigui per pocs minuts?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Double%20Parking%20(16303096661).jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "No, és una infracció encara que sigui breu"
+        },
+        {
+          "id": 2,
+          "resposta": "Sí, si s'activen els llums d'emergència"
+        },
+        {
+          "id": 3,
+          "resposta": "Sí, sempre que no hi hagi trànsit en aquell moment"
+        },
+        {
+          "id": 4,
+          "resposta": "Sí, si el conductor es queda dins el vehicle"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "pregunta": "A quina distància aproximada s'ha de col·locar el senyal d'un vehicle avariat en una via ràpida?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Triangle%20warning%20sign%20(red%20and%20yellow).svg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Uns 50 metres"
+        },
+        {
+          "id": 2,
+          "resposta": "5 metres"
+        },
+        {
+          "id": 3,
+          "resposta": "500 metres"
+        },
+        {
+          "id": 4,
+          "resposta": "No cal col·locar cap senyal si és de dia"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "pregunta": "Amb quants punts comença el permís de conduir un conductor novell?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Foto%20Permiso%20conducir.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "8 punts"
+        },
+        {
+          "id": 2,
+          "resposta": "12 punts"
+        },
+        {
+          "id": 3,
+          "resposta": "6 punts"
+        },
+        {
+          "id": 4,
+          "resposta": "15 punts"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "pregunta": "Es pot avançar un altre vehicle en una corba amb visibilitat reduïda?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/Winding%20road.jpg",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "No, està prohibit"
+        },
+        {
+          "id": 2,
+          "resposta": "Sí, si es fa amb rapidesa"
+        },
+        {
+          "id": 3,
+          "resposta": "Sí, si no ve cap vehicle en sentit contrari"
+        },
+        {
+          "id": 4,
+          "resposta": "Sí, sempre que s'utilitzi l'intermitent"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "pregunta": "Quan s'ha d'activar l'intermitent en canviar de carril?",
+      "imatge": "https://commons.wikimedia.org/wiki/Special:FilePath/GM%20multi-function%20turn-signal%20lever.JPG",
+      "respostes": [
+        {
+          "id": 1,
+          "resposta": "Abans d'iniciar la maniobra, amb temps suficient"
+        },
+        {
+          "id": 2,
+          "resposta": "Just en el moment de canviar de carril"
+        },
+        {
+          "id": 3,
+          "resposta": "Només si hi ha altres vehicles a prop"
+        },
+        {
+          "id": 4,
+          "resposta": "No cal si la via està buida"
+        }
+      ]
+    }
+  ]
+}
