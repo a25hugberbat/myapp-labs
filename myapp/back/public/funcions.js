@@ -149,14 +149,14 @@ window.addEventListener("load", function() {
     let nomLS = localStorage.getItem("nom");
         //si hi ha informacion al localstorage, posa el missatge de benvinguda i oculta la capsa de text
         if (nomLS!=null){
-            alert("Benvingut/a" + nomLS)
+             Swal.fire({ icon: 'success', title: "Benvingut/a" + nomLS});
             document.getElementById("divBenvinguda").innerHTML="Hola "+ nomLS + " benvingut"
             document.getElementById("inputNom").style.display="none"
             document.getElementById("btnGuardar").style.display="none"
         }
         //Si no hi ha informacio al local storage, oculta el boto de "btnEsborrar"
         if (nomLS==null){
-            alert("No registrat")
+            Swal.fire({ icon: 'warning', title: "No registrat" });
             document.getElementById("btnEsborrar").style.display="none"
         }
         //posem un listener al boto "btnGuardar" per guardar la informacio al localstorage i mostra el  missatge    
