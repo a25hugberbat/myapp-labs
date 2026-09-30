@@ -3,6 +3,7 @@ let sessionId;      // identificador de la partida, ens el dona el back
 const TEMPSLIMIT = 5
 let temps=0;
 let idTimer;
+let indexActual = 0; // Índice de la pregunta actual que se está mostrando
 
 //------------------ FUNCIONS ------------------
 
@@ -63,14 +64,15 @@ function iniciarPartida(preguntes) {
     estatDeLaPartida.respostesUsuari = new Array(preguntes.length).fill(null); // una posició per pregunta
     let htmlStr = ""
     for (let i = 0; i < preguntes.length; i++) {
-        htmlStr += `<div class="text-center d-flex flex-column align-items-center mb-5 pb-5 border-bottom">
-                        <img class="shadow-lg p-3 mb-5 bg-body-tertiary rounded" width="200px" src="${preguntes[i].imatge}">
-                        <p class="fw-medium">${i + 1}. ${preguntes[i].pregunta}</p>
-                        <div class="d-grid gap-2 w-100" style="max-width: 300px;">
-                        <button data-id-preg="${i}" data-id-resp="0" class="btnRespuesta btn btn-outline-primary">a.  ${preguntes[i].respostes[0].resposta}</button>
-                        <button data-id-preg="${i}" data-id-resp="1" class="btnRespuesta btn btn-outline-primary">b.  ${preguntes[i].respostes[1].resposta}</button>
-                        <button data-id-preg="${i}" data-id-resp="2" class="btnRespuesta btn btn-outline-primary">c. ${preguntes[i].respostes[2].resposta}</button>
-                        <button data-id-preg="${i}" data-id-resp="3" class="btnRespuesta btn btn-outline-primary">d. ${preguntes[i].respostes[3].resposta}</button>
+        //POSAR TOTES OCULTES (d-none)
+        htmlStr += `<div class="pregunta d-none text-center d-flex flex-column align-items-center py-2">
+                        <img class="shadow-sm p-1 mb-2 bg-body-tertiary rounded" style="max-height:180px; width:auto; max-width:100%;" src="${preguntes[i].imatge}">
+                        <p class="fw-medium mb-2">${i + 1}. ${preguntes[i].pregunta}</p>
+                        <div class="d-grid gap-1 w-100" style="max-width: 420px;">
+                        <button data-id-preg="${i}" data-id-resp="0" class="btnRespuesta btn btn-outline-primary btn-sm">a.  ${preguntes[i].respostes[0].resposta}</button>
+                        <button data-id-preg="${i}" data-id-resp="1" class="btnRespuesta btn btn-outline-primary btn-sm">b.  ${preguntes[i].respostes[1].resposta}</button>
+                        <button data-id-preg="${i}" data-id-resp="2" class="btnRespuesta btn btn-outline-primary btn-sm">c. ${preguntes[i].respostes[2].resposta}</button>
+                        <button data-id-preg="${i}" data-id-resp="3" class="btnRespuesta btn btn-outline-primary btn-sm">d. ${preguntes[i].respostes[3].resposta}</button>
                 </div>
             </div>`
     }
@@ -78,12 +80,29 @@ function iniciarPartida(preguntes) {
     document.getElementById("partida").innerHTML = htmlStr;
     renderitzarMarcador();
 
+    mostrarPregunta(0); // enseña la primera pregunta y activa los botones
+
     // Delegación de eventos: un solo listener para todos los botones de respuesta
     document.getElementById("partida").addEventListener("click", function (e) {
         if (e.target.classList.contains("btnRespuesta")) {
             marcar(e.target.dataset.idPreg, e.target.dataset.idResp);
         }
     });
+}
+
+function mostrarPregunta(nou) {
+    const divs = document.querySelectorAll(".pregunta");
+    divs[indexActual].classList.add("d-none"); // oculta la actual
+    divs[nou].classList.remove("d-none");      // muestra la nueva
+    indexActual = nou;
+    actualitzarNavegacio();
+}
+
+function actualitzarNavegacio() {
+    const total = document.querySelectorAll(".pregunta").length;
+    document.getElementById("indicador").textContent = "Pregunta " + (indexActual + 1) + " de " + total;
+    document.getElementById("btnAnterior").disabled = indexActual === 0;
+    document.getElementById("btnSeguent").disabled = indexActual === total - 1;
 }
 
 function marcar(preg, resp) {
@@ -149,7 +168,7 @@ window.addEventListener("load", function() {
     let nomLS = localStorage.getItem("nom");
         //si hi ha informacion al localstorage, posa el missatge de benvinguda i oculta la capsa de text
         if (nomLS!=null){
-             Swal.fire({ icon: 'success', title: "Benvingut/a" + nomLS});
+             Swal.fire({ icon: 'success', title: "Benvingut/a " + nomLS});
             document.getElementById("divBenvinguda").innerHTML="Hola "+ nomLS + " benvingut"
             document.getElementById("inputNom").style.display="none"
             document.getElementById("btnGuardar").style.display="none"
@@ -193,13 +212,17 @@ window.addEventListener("load", function() {
         sessionId = dadesenjson.sessionId;
         iniciarPartida(seleccionadas);
     });
-
-//INICIALITZACIO DE LA PARTE DE CAMBIAR PREGUNTTES
-
-//POSAR TOTES OCULTES
-
-//REACCIONAR AL BOTO ANTERIOR
-
-//REACCIONAR AL BOTO POSTERIOR
-
+//------------------ navegació entre preguntes ------------------
+    document.getElementById("btnAnterior").addEventListener("click", function () {
+        if (indexActual > 0) {
+            mostrarPregunta(indexActual - 1);
+        }
+    });
+ 
+    document.getElementById("btnSeguent").addEventListener("click", function () {
+        const total = document.querySelectorAll(".pregunta").length;
+        if (indexActual < total - 1) {
+            mostrarPregunta(indexActual + 1);
+        }
+    });
 });

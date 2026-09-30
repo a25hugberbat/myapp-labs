@@ -170,137 +170,110 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
 
-// --- Consultar preguntes ---
-app.get('/preguntes', (req, res) => {
-    // Mismo SELECT que en /json1: traemos pregunta + cada respuesta.
-    const sql = `
-        SELECT p.id AS pregunta_id, p.pregunta, p.imatge,
-               r.id AS resposta_id, r.resposta, r.es_correcta
-        FROM preguntes p
-        JOIN respostes r ON r.pregunta_id = p.id
-        ORDER BY p.id, r.id
-    `;
+// GET - obtenir totes les preguntes (amb les seves respostes)
+app.get("/preguntes", async (req, res) => {
+  try {
+    const [files] = await db.query(`
+      SELECT p.id AS pregunta_id, p.pregunta, p.imatge,
+             r.id AS resposta_id, r.resposta, r.es_correcta
+      FROM preguntes p
+      JOIN respostes r ON r.pregunta_id = p.id
+      ORDER BY p.id, r.id
+    `);
 
-    con.query(sql, (err, files) => {
-        if (err) {
-            return res.status(500).json({ error: 'Error consultant la base de dades' });
-        }
-        // Aquí sí devolvemos es_correcta (a diferencia de /json1),
-        // porque esta ruta es para gestión, no para jugar.
-        res.json(agruparPreguntes(files));
-    });
+    // Aquí sí retornem es_correcta: aquesta ruta és de gestió, no de joc
+    res.json(agruparPreguntes(files));
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error llegint preguntes");
+  }
 });
 
 
-// --- Afegir una pregunta ---
-app.post('/preguntes', (req, res) => {
-    // Sacamos los campos esperados del cuerpo de la petición.
+// POST - crear una pregunta amb les seves respostes
+app.post("/preguntes", async (req, res) => {
+  try {
     const { pregunta, imatge, respostes } = req.body;
 
-    // Validación básica: sin pregunta o sin respuestas, no seguimos.
     if (!pregunta || !Array.isArray(respostes) || respostes.length === 0) {
-        return res.status(400).json({ error: 'Falten dades: pregunta i respostes són obligatòries' });
+      return res.status(400).send("Falten dades: pregunta i respostes són obligatòries");
     }
 
-    // Insertamos primero la pregunta, sin sus respuestas todavía.
-    con.query(
-        'INSERT INTO preguntes (pregunta, imatge) VALUES (?, ?)',
-        [pregunta, imatge || null],
-        (err, resultatPregunta) => {
-            if (err) {
-                return res.status(500).json({ error: 'Error creant la pregunta' });
-            }
-
-            // Id autogenerado por MySQL, necesario para relacionar las respuestas.
-            const novaPreguntaId = resultatPregunta.insertId;
-
-            // Contador de inserciones pendientes: con callbacks no podemos
-            // usar await dentro de un for, así que llevamos la cuenta a mano
-            // para saber cuándo han terminado todas las respuestas.
-            let pendents = respostes.length;
-
-            // Recorremos cada opción de respuesta recibida.
-            respostes.forEach(r => {
-                // Insertamos esta opción, apuntando a la pregunta recién creada.
-                con.query(
-                    'INSERT INTO respostes (pregunta_id, resposta, es_correcta) VALUES (?, ?, ?)',
-                    [novaPreguntaId, r.resposta, !!r.es_correcta],
-                    (err2) => {
-                        if (err2) {
-                            return res.status(500).json({ error: 'Error creant les respostes' });
-                        }
-
-                        // Restamos una del contador de pendientes.
-                        pendents--;
-
-                        // Cuando ya no queda ninguna pendiente, respondemos al cliente.
-                        if (pendents === 0) {
-                            res.status(201).json({ id: novaPreguntaId, pregunta, imatge, respostes });
-                        }
-                    }
-                );
-            });
-        }
+    const [resultat] = await db.query(
+      "INSERT INTO preguntes (pregunta, imatge) VALUES (?, ?)",
+      [pregunta, imatge || null]
     );
+
+    const idPregunta = resultat.insertId;
+
+    for (const r of respostes) {
+      await db.query(
+        "INSERT INTO respostes (pregunta_id, resposta, es_correcta) VALUES (?, ?, ?)",
+        [idPregunta, r.resposta, !!r.es_correcta]
+      );
+    }
+
+    res.json({ missatge: "Pregunta creada" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error creant pregunta");
+  }
 });
 
 
-// --- Modificar una pregunta ---
-app.put('/preguntes/:id', (req, res) => {
-    // Id de la pregunta a modificar.
+// PUT - modificar una pregunta
+app.put("/preguntes/:id", async (req, res) => {
+  try {
     const id = req.params.id;
-
-    // Nuevos valores recibidos.
     const { pregunta, imatge } = req.body;
 
-    // El texto de la pregunta es obligatorio.
     if (!pregunta) {
-        return res.status(400).json({ error: 'Falta el camp pregunta' });
+      return res.status(400).send("Falta el camp pregunta");
     }
 
-    // Ejecutamos el UPDATE con los nuevos valores.
-    con.query(
-        'UPDATE preguntes SET pregunta = ?, imatge = ? WHERE id = ?',
-        [pregunta, imatge || null, id],
-        (err, resultat) => {
-            if (err) {
-                return res.status(500).json({ error: 'Error modificant la pregunta' });
-            }
-
-            // Si no se actualizó ninguna fila, es que ese id no existía.
-            if (resultat.affectedRows === 0) {
-                return res.status(404).json({ error: 'Pregunta no trobada' });
-            }
-
-            // Confirmamos los nuevos datos al cliente.
-            res.json({ id, pregunta, imatge });
-        }
+    const [resultat] = await db.query(
+      "UPDATE preguntes SET pregunta = ?, imatge = ? WHERE id = ?",
+      [pregunta, imatge || null, id]
     );
+
+    if (resultat.affectedRows === 0) {
+      return res.status(404).send("Pregunta no trobada");
+    }
+
+    res.json({ missatge: "Pregunta modificada" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error modificant pregunta");
+  }
 });
 
 
-// --- Eliminar una pregunta ---
-app.delete('/preguntes/:id', (req, res) => {
-    // Id de la pregunta a borrar.
+// DELETE - eliminar una pregunta (les respostes s'esborren pel ON DELETE CASCADE)
+app.delete("/preguntes/:id", async (req, res) => {
+  try {
     const id = req.params.id;
 
-    // Ejecutamos el DELETE (las respuestas se borran solas por el
-    // ON DELETE CASCADE definido en la clave foránea).
-    con.query(
-        'DELETE FROM preguntes WHERE id = ?',
-        [id],
-        (err, resultat) => {
-            if (err) {
-                return res.status(500).json({ error: 'Error eliminant la pregunta' });
-            }
-
-            // Si no se borró ninguna fila, ese id no existía.
-            if (resultat.affectedRows === 0) {
-                return res.status(404).json({ error: 'Pregunta no trobada' });
-            }
-
-            // 204 = éxito, sin contenido que devolver.
-            res.status(204).send();
-        }
+    const [resultat] = await db.query(
+      "DELETE FROM preguntes WHERE id = ?",
+      [id]
     );
+
+    if (resultat.affectedRows === 0) {
+      return res.status(404).send("Pregunta no trobada");
+    }
+
+    res.json({ missatge: "Pregunta eliminada" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error eliminant pregunta");
+  }
+});
+
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
