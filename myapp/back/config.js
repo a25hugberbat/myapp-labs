@@ -1,4 +1,5 @@
 module.exports = {
+    socketPath: '/var/run/mysqld/mysqld.sock',
     host: 'localhost',
     port: 3306,
     user: 'a25hugberbat_root',

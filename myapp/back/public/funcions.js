@@ -195,6 +195,7 @@ window.addEventListener("load", function() {
     });
 
 //INICIALITZACIO DE LA PARTE DE CAMBIAR PREGUNTTES
+
 //POSAR TOTES OCULTES
 
 //REACCIONAR AL BOTO ANTERIOR
