@@ -209,7 +209,7 @@ app.get("/preguntes", async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error llegint preguntes");
+    res.status(500).send("Error llegint preguntes: " + error.message);
   }
 });
 
@@ -249,7 +249,7 @@ app.post("/preguntes", upload.single("imatge"), async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error creant pregunta");
+    res.status(500).send("Error creant pregunta: " + error.message);
   }
 });
 
@@ -290,7 +290,7 @@ app.put("/preguntes/:id", upload.single("imatge"), async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error modificant pregunta");
+    res.status(500).send("Error modificant pregunta: " + error.message);
   }
 });
 
@@ -313,7 +313,7 @@ app.delete("/preguntes/:id", async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error eliminant pregunta");
+    res.status(500).send("Error eliminant pregunta: " + error.message);
   }
 });
 
