@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const app = express();
 const fs = require('fs');
 const path = require('path');
+const multer = require('multer');
 const port = Number(process.argv[2]) ||20000;
 
 
@@ -166,9 +167,31 @@ app.post('/json2', (req, res) => {
     res.json({ total: preguntesDeLaPartida.length, correctes: correctes });
 });
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+// =================================================================
+// ========================= CRUD PREGUNTES ========================
+// =================================================================
+
+// Versió amb promeses del mateix pool de db.js: així podem fer servir
+// async/await al CRUD sense tocar db.js ni les rutes /json1 i /json2.
+const db = con.promise();
+
+// --- Configuració de multer (rep els fitxers del formulari) ---
+// Les imatges es guarden a la carpeta public/images. Com que ja fem
+// express.static('public'), un fitxer public/images/a.jpg es pot veure
+// al navegador amb la URL /images/a.jpg
+const carpetaImatges = path.join(__dirname, 'public', 'images');
+fs.mkdirSync(carpetaImatges, { recursive: true }); // crea la carpeta si no existeix
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: carpetaImatges,
+    // nom únic per a no trepitjar altres imatges: pregunta + data + extensió
+    filename: (req, file, cb) => {
+      cb(null, "pregunta" + Date.now() + path.extname(file.originalname));
+    }
+  })
 });
+
 
 // GET - obtenir totes les preguntes (amb les seves respostes)
 app.get("/preguntes", async (req, res) => {
@@ -192,17 +215,25 @@ app.get("/preguntes", async (req, res) => {
 
 
 // POST - crear una pregunta amb les seves respostes
-app.post("/preguntes", async (req, res) => {
+// Ara la petició és multipart/form-data, per això posem upload.single("imatge"):
+// multer agafa el fitxer del camp "imatge" i el desa a la carpeta.
+// Els altres camps del formulari queden a req.body (com a text).
+app.post("/preguntes", upload.single("imatge"), async (req, res) => {
   try {
-    const { pregunta, imatge, respostes } = req.body;
+    const pregunta = req.body.pregunta;
+    // "respostes" arriba com a text JSON, el convertim a array
+    const respostes = JSON.parse(req.body.respostes || "[]");
 
     if (!pregunta || !Array.isArray(respostes) || respostes.length === 0) {
       return res.status(400).send("Falten dades: pregunta i respostes són obligatòries");
     }
 
+    // Només guardem el path a la BD (si s'ha pujat imatge)
+    const imatge = req.file ? "/images/" + req.file.filename : null;
+
     const [resultat] = await db.query(
       "INSERT INTO preguntes (pregunta, imatge) VALUES (?, ?)",
-      [pregunta, imatge || null]
+      [pregunta, imatge]
     );
 
     const idPregunta = resultat.insertId;
@@ -223,23 +254,36 @@ app.post("/preguntes", async (req, res) => {
 });
 
 
-// PUT - modificar una pregunta
-app.put("/preguntes/:id", async (req, res) => {
+// PUT - modificar una pregunta, les seves respostes i quina és la correcta
+app.put("/preguntes/:id", upload.single("imatge"), async (req, res) => {
   try {
     const id = req.params.id;
-    const { pregunta, imatge } = req.body;
+    const pregunta = req.body.pregunta;
+    const respostes = JSON.parse(req.body.respostes || "[]");
 
     if (!pregunta) {
       return res.status(400).send("Falta el camp pregunta");
     }
 
+    // Si no s'ha pujat cap imatge nova, posem null i amb COALESCE
+    // la BD es queda amb la imatge que ja tenia.
+    const imatge = req.file ? "/images/" + req.file.filename : null;
+
     const [resultat] = await db.query(
-      "UPDATE preguntes SET pregunta = ?, imatge = ? WHERE id = ?",
-      [pregunta, imatge || null, id]
+      "UPDATE preguntes SET pregunta = ?, imatge = COALESCE(?, imatge) WHERE id = ?",
+      [pregunta, imatge, id]
     );
 
     if (resultat.affectedRows === 0) {
       return res.status(404).send("Pregunta no trobada");
+    }
+
+    // Actualitzem cada resposta pel seu id (text + si és la correcta)
+    for (const r of respostes) {
+      await db.query(
+        "UPDATE respostes SET resposta = ?, es_correcta = ? WHERE id = ? AND pregunta_id = ?",
+        [r.resposta, !!r.es_correcta, r.id, id]
+      );
     }
 
     res.json({ missatge: "Pregunta modificada" });
