@@ -66,7 +66,7 @@ function iniciarPartida(preguntes) {
     for (let i = 0; i < preguntes.length; i++) {
         //POSAR TOTES OCULTES (d-none)
         htmlStr += `<div class="pregunta d-none text-center d-flex flex-column align-items-center py-2">
-                        <img class="shadow-sm p-1 mb-2 bg-body-tertiary rounded" style="max-height:180px; width:auto; max-width:100%;" src="${preguntes[i].imatge}">
+                        <img class="shadow p-3 mb-5 bg-body-tertiary rounded" style="max-height:180px; width:auto; max-width:100%;" src="${preguntes[i].imatge}">
                         <p class="fw-medium mb-2">${i + 1}. ${preguntes[i].pregunta}</p>
                         <div class="d-grid gap-1 w-100" style="max-width: 420px;">
                         <button data-id-preg="${i}" data-id-resp="0" class="btnRespuesta btn btn-outline-primary btn-sm">a.  ${preguntes[i].respostes[0].resposta}</button>
