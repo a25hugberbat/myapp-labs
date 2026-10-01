@@ -43,6 +43,8 @@ services:
   adminer:
     image: adminer
     restart: unless-stopped
+    # Escoltem per IPv4 (per defecte escolta a [::] i falla si no hi ha IPv6)
+    command: ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html"]
     ports:
       - "8080:8080"
     depends_on:
