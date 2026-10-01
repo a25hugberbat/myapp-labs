@@ -144,7 +144,7 @@ function enviarRespostes() {
         return
       }
 
-      const aprovat = resultat.correctes >= resultat.total * 0.9
+      const aprovat = resultat.correctes >= resultat.total * 0.5
       Swal.fire({
         icon: aprovat ? "success" : "error",
         title: aprovat ? "Molt bé!" : "Segueix practicant",
