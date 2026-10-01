@@ -6,14 +6,30 @@ let idsRespostes = [];  // ids de les 4 respostes de la pregunta que modifiquem
 
 //--------------------------------FUNCIONS
 
+// Quan el servidor té un error, respon amb un TEXT (no amb JSON).
+// Per això, abans de fer .json() comprovem si la resposta ha anat bé.
+function comprovarResposta(resposta) {
+  if (!resposta.ok) {
+    return resposta.text().then(text => { throw new Error(text); });
+  }
+  return resposta.json();
+}
+
+// Ensenya l'error a l'usuari (i a la consola)
+function mostrarError(error) {
+  console.error(error);
+  alert("Error: " + error.message);
+}
+
 // CONSULTAR: demana les preguntes al servidor i les pinta
 function carregarPreguntes() {
   fetch("./preguntes")
-    .then(resposta => resposta.json())
+    .then(comprovarResposta)
     .then(data => {
       preguntes = data;
       pintarLlista();
-    });
+    })
+    .catch(mostrarError);
 }
 
 // Dibuixa les preguntes amb les seves respostes (la correcta en negreta)
@@ -102,12 +118,13 @@ function guardarPregunta() {
 
   // No posem Content-Type: el navegador el posa sol quan és FormData
   fetch(url, { method: metode, body: dades })
-    .then(resposta => resposta.json())
+    .then(comprovarResposta)
     .then(resultat => {
       alert(resultat.missatge);
       netejarFormulari();
       carregarPreguntes();
-    });
+    })
+    .catch(mostrarError);
 }
 
 // ELIMINAR
@@ -115,11 +132,12 @@ function eliminarPregunta(id) {
   if (!confirm("Vols eliminar la pregunta " + id + "?")) return;
 
   fetch("./preguntes/" + id, { method: "DELETE" })
-    .then(resposta => resposta.json())
+    .then(comprovarResposta)
     .then(resultat => {
       alert(resultat.missatge);
       carregarPreguntes();
-    });
+    })
+    .catch(mostrarError);
 }
 
 
