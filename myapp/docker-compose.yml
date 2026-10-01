@@ -1,0 +1,53 @@
+services:
+  # Base de dades MySQL
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: quiz
+      MYSQL_USER: quiz
+      MYSQL_PASSWORD: quiz
+    volumes:
+      - db_data:/var/lib/mysql
+      # Els .sql d'aquesta carpeta s'executen el primer cop que es crea la BD
+      - ./back/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uquiz", "-pquiz"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # Servidor Node (Express)
+  app:
+    build: ./back
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: quiz
+      DB_PASSWORD: quiz
+      DB_NAME: quiz
+    ports:
+      - "20012:20012"
+    volumes:
+      # Les imatges pujades des de l'admin no es perden en recrear el contenidor
+      - images:/app/public/images
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Interfície web per veure la BD (http://localhost:8080)
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+  images:

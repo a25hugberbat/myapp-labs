@@ -5,6 +5,15 @@ const respostesData = require('./respostes.json').respostes;
 async function migrar() {
     const connexio = await mysql.createConnection(require('./config'));
 
+    // Si ja hi ha preguntes a la BD no tornem a migrar (evitem duplicats
+    // cada cop que s'arrenca el contenidor).
+    const [[{ total }]] = await connexio.query('SELECT COUNT(*) AS total FROM preguntes');
+    if (total > 0) {
+        console.log(`La BD ja té ${total} preguntes, no cal migrar.`);
+        await connexio.end();
+        return;
+    }
+
     console.log(`Migrant ${preguntesData.length} preguntes...`);
 
     for (const pregunta of preguntesData) {
