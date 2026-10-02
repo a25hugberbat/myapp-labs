@@ -6,30 +6,14 @@ let idsRespostes = [];  // ids de les 4 respostes de la pregunta que modifiquem
 
 //--------------------------------FUNCIONS
 
-// Quan el servidor té un error, respon amb un TEXT (no amb JSON).
-// Per això, abans de fer .json() comprovem si la resposta ha anat bé.
-function comprovarResposta(resposta) {
-  if (!resposta.ok) {
-    return resposta.text().then(text => { throw new Error(text); });
-  }
-  return resposta.json();
-}
-
-// Ensenya l'error a l'usuari (i a la consola)
-function mostrarError(error) {
-  console.error(error);
-  alert("Error: " + error.message);
-}
-
 // CONSULTAR: demana les preguntes al servidor i les pinta
 function carregarPreguntes() {
   fetch("./preguntes")
-    .then(comprovarResposta)
+    .then(resposta => resposta.json())
     .then(data => {
       preguntes = data;
       pintarLlista();
-    })
-    .catch(mostrarError);
+    });
 }
 
 // Dibuixa les preguntes amb les seves respostes (la correcta en negreta)
@@ -38,6 +22,8 @@ function pintarLlista() {
   for (let i = 0; i < preguntes.length; i++) {
     const p = preguntes[i];
 
+    // Cada pregunta és una targeta
+    htmlStr += `<div class="card shadow-sm mb-2"><div class="card-body">`;
     htmlStr += `<p><b>${p.id}. ${p.pregunta}</b></p>`;
     if (p.imatge) {
       htmlStr += `<img src="${p.imatge}" height="60">`;
@@ -54,7 +40,8 @@ function pintarLlista() {
     htmlStr += "</ul>";
 
     htmlStr += `<button class="btnEditar btn btn-primary btn-sm" data-pos="${i}">Modificar</button>
-                <button class="btnEliminar btn btn-danger btn-sm" data-id="${p.id}">Eliminar</button><hr>`;
+                <button class="btnEliminar btn btn-danger btn-sm" data-id="${p.id}">Eliminar</button>
+                </div></div>`;
   }
   document.getElementById("llista").innerHTML = htmlStr;
 }
@@ -85,6 +72,9 @@ function editarPregunta(pos) {
     document.getElementsByName("correcta")[i].checked = p.respostes[i].es_correcta;
     idsRespostes.push(p.respostes[i].id);
   }
+    // Pugem a dalt de tot de la pàgina (on hi ha el formulari), amb moviment suau
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
 }
 
 // CREAR o MODIFICAR (segons si idEditant té valor)
@@ -118,13 +108,12 @@ function guardarPregunta() {
 
   // No posem Content-Type: el navegador el posa sol quan és FormData
   fetch(url, { method: metode, body: dades })
-    .then(comprovarResposta)
+    .then(resposta => resposta.json())
     .then(resultat => {
       alert(resultat.missatge);
       netejarFormulari();
       carregarPreguntes();
-    })
-    .catch(mostrarError);
+    });
 }
 
 // ELIMINAR
@@ -132,12 +121,11 @@ function eliminarPregunta(id) {
   if (!confirm("Vols eliminar la pregunta " + id + "?")) return;
 
   fetch("./preguntes/" + id, { method: "DELETE" })
-    .then(comprovarResposta)
+    .then(resposta => resposta.json())
     .then(resultat => {
       alert(resultat.missatge);
       carregarPreguntes();
-    })
-    .catch(mostrarError);
+    });
 }
 
 

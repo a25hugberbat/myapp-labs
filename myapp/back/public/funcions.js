@@ -1,5 +1,5 @@
 //--------------------------------------VARIABLES GLOBALS
-const TEMPSLIMIT = 50
+const TEMPSLIMIT = 20
 let pregActual = 0
 let temps = 0;
 let idTimer;
@@ -194,51 +194,19 @@ function iniciarCronometre() {
 //------------------------------MAIN------------------------
 window.addEventListener("load", function () {
 
-  document.getElementById("btnIniciarCronometre").addEventListener("click", function () {
-    iniciarCronometre();
-  })
-
   // Botó "Noves preguntes": recarrega la pàgina, així es torna a executar
   // el fetch a ./json1 i el servidor tria 10 preguntes a l'atzar
   document.getElementById("btnNovaPartida").addEventListener("click", function () {
     location.reload()
   })
 
-  //------------------ persistencia ------------------
-  //Miro LS a veure si hi ha alguna cosa
+  //------------------ usuari ------------------
+  // El nom es guarda a l'inici (index.html); aquí només el ensenyem si n'hi ha
   let nomLS = localStorage.getItem("nom");
-
-  //si hi ha informacio al localstorage, posa el missatge de benvinguda i oculta la capsa de text
   if (nomLS != null) {
-    Swal.fire({ icon: 'success', title: "Benvingut/a " + nomLS });
-    document.getElementById("divBenvinguda").innerHTML = "Hola " + nomLS + " benvingut"
-    document.getElementById("inputNom").style.display = "none"
-    document.getElementById("btnGuardar").style.display = "none"
+    document.getElementById("nomUsuari").textContent = nomLS
+    document.getElementById("boxUsuari").classList.remove("d-none")
   }
-  //Si no hi ha informacio al local storage, oculta el boto "btnEsborrar"
-  if (nomLS == null) {
-    Swal.fire({ icon: 'warning', title: "No registrat" });
-    document.getElementById("btnEsborrar").style.display = "none"
-  }
-
-  //posem un listener al boto "btnGuardar" per guardar la informacio al localstorage i mostrar el missatge
-  document.getElementById("btnGuardar").addEventListener("click", function () {
-    let contingutCapsaText = document.getElementById("inputNom").value
-    localStorage.setItem("nom", contingutCapsaText)
-    document.getElementById("divBenvinguda").innerHTML = "Hola " + contingutCapsaText + " benvingut"
-    document.getElementById("inputNom").style.display = "none"
-    document.getElementById("btnGuardar").style.display = "none"
-    document.getElementById("btnEsborrar").style.display = "block"
-  })
-
-  //posem un listener al boto esborrar per borrar la info al local storage, mostrar la capsa de text...
-  document.getElementById("btnEsborrar").addEventListener("click", function () {
-    localStorage.removeItem("nom")
-    document.getElementById("divBenvinguda").innerHTML = ""
-    document.getElementById("inputNom").style.display = "block"
-    document.getElementById("btnGuardar").style.display = "block"
-    document.getElementById("btnEsborrar").style.display = "none"
-  })
 
   //------------------ fetch a les preguntes ------------------
   fetch('./json1') // 1. Demanem les preguntes al servidor (ja venen a l'atzar + sessionId)
@@ -254,6 +222,8 @@ window.addEventListener("load", function () {
       sessionId = data.sessionId;
       // crido a la funció per pintar la partida
       iniciarPartida(data.preguntes);
+      // un cop pintades les preguntes, engego el cronòmetre automàticament
+      iniciarCronometre();
     })
     .catch(error => {
       console.error("Error carregant les preguntes:", error);
