@@ -3,10 +3,11 @@ const TEMPSLIMIT = 50
 let pregActual = 0
 let temps = 0;
 let idTimer;
+let partidaAcabada = false;   // passa a true quan s'acaba el temps o es prem Resoldre
 let sessionId;   // identificador de la partida, ens el dona el back
 // Creo una variable global per a guardar les preguntes rebudes
 let arrayPreguntas = [];
-let tempsAcabat = false;
+
 let estatDeLaPartida = {
   contadorPreguntes: 0,
   respostesUsuari: []  // Aquí anirem guardant les respostes
@@ -78,8 +79,10 @@ function mostrarPregunta() {
 }
 
 function marcar(preg, resp) {
+  // Si s'ha acabat el temps, no deixem contestar
+  if (partidaAcabada) return
+
   // preg i resp arriben com a text des del dataset, els passo a número
-  if (tempsAcabat) return
   preg = Number(preg)
   resp = Number(resp)
   console.log("En la pregunta " + preg + " has marcado " + resp)
@@ -130,6 +133,9 @@ function renderMarcador() {
 }
 
 function enviarRespostes() {
+  // Paro el cronòmetre i no deixo marcar més respostes
+  pararPartida()
+
   fetch("./json2", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -160,7 +166,17 @@ function enviarRespostes() {
 }
 
 //------------------ timer ------------------
+// Para el cronòmetre i bloqueja les respostes (s'usa quan s'acaba el temps
+// i quan l'usuari prem Resoldre)
+function pararPartida() {
+  partidaAcabada = true;   // marcar() ja no deixarà contestar
+  clearInterval(idTimer);  // parem el timer
+  idTimer = null;
+}
+
 function iniciarCronometre() {
+  // Si la partida ja ha acabat, no el tornem a engegar
+  if (partidaAcabada) return;
   // Evitem engegar-lo dues vegades si ja estava en marxa
   if (idTimer != null) return;
 
@@ -168,11 +184,8 @@ function iniciarCronometre() {
     temps = temps + 1;
     document.getElementById("cronometre").innerHTML = temps;
     if (temps == TEMPSLIMIT) {
-      tempsAcabat = true;
       Swal.fire({ icon: 'warning', title: "S'ha acabat el temps" });
-      //cancelare el timer
-      clearInterval(idTimer);
-      idTimer = null;
+      pararPartida();
     }
   }, 1000);
 }
@@ -185,9 +198,12 @@ window.addEventListener("load", function () {
     iniciarCronometre();
   })
 
-document.getElementById("btnNovaPartida").addEventListener("click", function () {
-  location.reload()
-})
+  // Botó "Noves preguntes": recarrega la pàgina, així es torna a executar
+  // el fetch a ./json1 i el servidor tria 10 preguntes a l'atzar
+  document.getElementById("btnNovaPartida").addEventListener("click", function () {
+    location.reload()
+  })
+
   //------------------ persistencia ------------------
   //Miro LS a veure si hi ha alguna cosa
   let nomLS = localStorage.getItem("nom");
