@@ -4,7 +4,7 @@ const app = express();
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
-const port = Number(process.argv[2]) ||20000;
+const port = Number(process.argv[2]) ||20012;
 
 
 // Importamos la conexión a la base de datos.
