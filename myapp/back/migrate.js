@@ -5,6 +5,15 @@ const respostesData = require('./respostes.json').respostes;
 async function migrar() {
     const connexio = await mysql.createConnection(require('./config'));
 
+    // 0. Buidem les taules abans d'inserir, perquè no es dupliquin les preguntes
+    //    si executem el script més d'una vegada.
+    //    Primer respostes (depèn de preguntes per la clau forana), després preguntes.
+    await connexio.query('DELETE FROM respostes');
+    await connexio.query('DELETE FROM preguntes');
+    // Reiniciem els comptadors perquè els ids tornin a començar per 1
+    await connexio.query('ALTER TABLE respostes AUTO_INCREMENT = 1');
+    await connexio.query('ALTER TABLE preguntes AUTO_INCREMENT = 1');
+
     console.log(`Migrant ${preguntesData.length} preguntes...`);
 
     for (const pregunta of preguntesData) {
