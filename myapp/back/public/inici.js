@@ -49,6 +49,13 @@ window.addEventListener("load", function () {
     Swal.fire({ icon: 'success', title: "Benvingut/a " + nom })
   })
 
+  // ENTER a la capsa de text: fa el mateix que clicar "Iniciar Sessió"
+  document.getElementById("inputNom").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      document.getElementById("btnGuardar").click()
+    }
+  })
+
   // TANCAR SESSIÓ: esborra el nom del localStorage
   document.getElementById("btnEsborrar").addEventListener("click", function () {
     localStorage.removeItem("nom")
