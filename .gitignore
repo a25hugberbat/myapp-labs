@@ -1,0 +1,8 @@
+# Dependències: es tornen a instal·lar amb "npm install"
+node_modules/
+
+# Contrasenyes i configuració privada
+.env
+
+# Imatges que pugen els usuaris des del panell d'administració
+myapp/back/public/images/
